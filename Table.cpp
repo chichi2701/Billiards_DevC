@@ -1,6 +1,5 @@
 #include "Table.h"
-Table::Table(char* objFile, bool hasTexture, map<string, texture>* textures):Model_OBJ(objFile, hasTexture, textures){
-	this->left = -0.46;
+Table::Table(char* objFile, bool hasTexture, map<string, texture>* textures):Model_OBJ(objFile, hasTexture, textures){ //tao ban
 	this->right = 0.46;
 	this->top = -0.19;
 	this->bottom = 0.2;
@@ -13,7 +12,8 @@ Table::Table(char* objFile, bool hasTexture, map<string, texture>* textures):Mod
 	holes[5] = new Hole(glm::vec3(0.47007, heigh, 0.22153), 0.04);
 }
 
-bool Table::isBallHitLeftBorder(Ball *ball){
+/*Kiem tra va cham cac canh ban*/
+bool Table::isBallHitLeftBorder(Ball *ball){ //canh trai
 	if ( ball->pos.x < (this->left + ball->radius) ) 
 		return true;
 	else 
@@ -21,28 +21,29 @@ bool Table::isBallHitLeftBorder(Ball *ball){
 }
 
 
-bool Table::isBallHitRightBorder(Ball *ball){
+bool Table::isBallHitRightBorder(Ball *ball){ //canh phai
 	if ( ball->pos.x > (this->right - ball->radius) )
 		return true;
 	else
 		return false;
 }
 
-bool Table::isBallHitTopBorder(Ball *ball){
+bool Table::isBallHitTopBorder(Ball *ball){ //canh tren
 	if ( ball->pos.z < (this->top + ball->radius) )
 		return true;
 	else 
 		return false;
 }
 
-bool Table::isBallHitBottomBorder(Ball *ball){
+bool Table::isBallHitBottomBorder(Ball *ball){ // canh duoi
 	if ( ball->pos.z > (this->bottom - ball->radius) )
 		return true;
 	else 
 		return false;	
 }
+/*Kiem tra va cham cac goc ban*/
 
-void Table::resToBallHitTable(Ball *ball){
+void Table::resToBallHitTable(Ball *ball){ // xu ly va cham ban
 	if ( isBallHitLeftBorder(ball) ){
 		ball->vel.x = -ball->vel.x;	
 		ball->pos.x = left + ball->radius;

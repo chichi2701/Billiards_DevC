@@ -12,7 +12,7 @@ bool Hole::isBallInHole(Ball *ball){
 		return false;			
 }
 
-void Hole::resToBallInHole(Ball *ball){		
+void Hole::resToBallInHole(Ball *ball){	//xu ly khi bong vao lo	
 	ball->pos = this->pos;
 	ball->isInHole = true;
 	ball->vel = glm::vec3(0,-0.05,0);	
