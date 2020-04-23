@@ -20,41 +20,41 @@ using namespace std;
 /************************************************************************
 	Camera
  ************************************************************************/
-const int numOfBall = 10;
+const int numOfBall = 10; // so bong
 Ball* balls[numOfBall];
 float PI = 3.14;
-glm::vec3 position(1, 1, 1);
-float distanceFromObject = 1.792;
+glm::vec3 position(1, 1, 1); //vi tri cua camera
+float distanceFromObject = 1.792; //khoang cach tu doi tuong
 float angleAroundObject = 0;
-float pitch = -40;
-float yaw = 0;
-float roll;
+float pitch = -40; // quay doc theo chieu dai cam la pitch
+float yaw = 0;//quay doc theo truc doc
+float roll;// quay doc theo chieu rong
 float originalPitch;
 int oldMouseX, oldMouseY;
 bool mouseDown, isLeftClick, isRightClick, flag;
 
-float calculateHorizontalDistance(){
-	return distanceFromObject*cos(pitch*PI/180);
+float calculateHorizontalDistance(){ // tinh toan khoang cach ngang toi doi tuong
+	return distanceFromObject*cos(pitch*PI/180); 
 }
-float calculateVerticalDistance(){
+float calculateVerticalDistance(){ //tinh khoang cach doc toi doi tuong
 	return distanceFromObject*sin(pitch*PI/180);
 }
 
-void calculateCameraPosition(float horizDistance, float verticDistance){	
-	float theta = balls[0]->angle + angleAroundObject;
+void calculateCameraPosition(float horizDistance, float verticDistance){	 // tinh toan vi tri cua cam
+	float theta = balls[0]->angle + angleAroundObject;	// goc cua doi tuong 0 va goc xung quanh doi tuong
 	float offsetX = horizDistance * sin(theta*PI/180);
 	float offsetZ = horizDistance * cos(theta*PI/180);
-	position.x = balls[0]->pos[0] - offsetX;
+	position.x = balls[0]->pos[0] - offsetX; // thuc hien di chuyen cam theo truc bat ki
 	position.z = balls[0]->pos[1] - offsetZ;
 	position.y = balls[0]->pos[1] - verticDistance;
 }
 
 void calculateZoom(float command){
-	//Command is 1 or -1 which equivalent to zoom in and zoom out
+	////Command 1 hoac -1 tuong duong voi phong to hoac thu nho
 	distanceFromObject += command * 0.1f;
 }
 
-void calculatePitch(float MouseDY){
+void calculatePitch(float MouseDY){ // tinh toan quay doc theo chieu dai cua cam
 	//ensure that right button is down
 	originalPitch = pitch;
 	pitch -= MouseDY * 0.08f;
@@ -64,13 +64,13 @@ void calculatePitch(float MouseDY){
 //	cout << pitch << endl;
 }
 
-void calculateAngleAroundObject(float MouseDX){
+void calculateAngleAroundObject(float MouseDX){ 
 	//ensure that left button is down
 	float angleChange = MouseDX * 0.08f;
 	angleAroundObject -= angleChange;
 }
 
-void move(float command, float MouseDY, float MouseDX){
+void move(float command, float MouseDY, float MouseDX){ // dx va dy la toa do cua chuot dc update lien tuc khi move
 	calculateZoom(command);
 	calculatePitch(MouseDY);
 	calculateAngleAroundObject(MouseDX);
@@ -81,8 +81,8 @@ void move(float command, float MouseDY, float MouseDX){
 }
 
 
-void MouseEvent(int button, int state, int x, int y){
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+void MouseEvent(int button, int state, int x, int y){ // button la bat su kien chuot trai or phai
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){ //state la trang thai bam chuot or tha chuot
 		isLeftClick = true;
 	}else if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN){
 		isRightClick = true;
@@ -90,11 +90,11 @@ void MouseEvent(int button, int state, int x, int y){
 		isLeftClick = false;
 		isRightClick = false;
 	}
-	oldMouseX = x;
+	oldMouseX = x; // gan x y la toa do tren man hinh window
 	oldMouseY = y;
 }
  
-void mouseMotion(int x, int y){
+void mouseMotion(int x, int y){ // ham chuyen dong cua chuot
 	if (isLeftClick){
 		int DY = y - oldMouseY;
 		int DX = x - oldMouseX;
@@ -109,7 +109,6 @@ void mouseMotion(int x, int y){
 		oldMouseY = y;
 	}	
 }
-
 void keyboardCam(){
 	
 }
@@ -426,7 +425,7 @@ void display()
 		draw2DHUD();	
 	glutSwapBuffers();
 }
-void strikeBall(){ 
+void strikeBall(){ //thanh luc
 	glm::vec3 cueVel = balls[0]->pos - glm::vec3(position.x, table.heigh + balls[0]->radius, position.z);
 	cueVel = glm::normalize(cueVel)*(float)(force/100);	
 	balls[0]->vel = cueVel;
