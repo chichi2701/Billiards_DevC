@@ -5,7 +5,7 @@ Ball::Ball(char* objFile, bool hasTexture, map<string, texture>* textures):Model
 	this->orientation = glm::vec3(0,0,0);
 }
 
-bool Ball::isBallHit(Ball* ball){
+bool Ball::isBallHit(Ball* ball){ 
 	glm::vec3 distance = this->pos - ball->pos;
 	float length = glm::length(distance);
 	float sumradius = this->radius + ball->radius;	
@@ -14,7 +14,7 @@ bool Ball::isBallHit(Ball* ball){
 	else 
 		return false;				
 }
-void Ball::resToBallHit(Ball *ball){	
+void Ball::resToBallHit(Ball *ball){	//xu ly va cham bong
 	float tmp;
 	glm::vec3 normal, tangential, v1, v2, v1n, v1t, v2n, v2t;
 	
@@ -38,7 +38,7 @@ void Ball::resToBallHit(Ball *ball){
 	ball->pos = ball->pos - normal*tmp;
 	
 }
-void Ball::draw(){	
+void Ball::draw(){	 //ve bong
 	if (glm::length(vel) > 0)	orientation = vel;	
 	if ( isInHole )	 orientation = glm::vec3(0,0,0);
 	glPushMatrix();				
